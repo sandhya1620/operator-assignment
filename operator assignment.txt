@@ -1,0 +1,54 @@
+using System;
+
+namespace EmployeeApp
+{
+    // Define the Employee class
+    public class Employee
+    {
+        // Properties of the Employee class
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        // Overload the equality operator '=='
+        public static bool operator ==(Employee emp1, Employee emp2)
+        {
+            // Check if both objects are null
+            if (ReferenceEquals(emp1, null) && ReferenceEquals(emp2, null))
+                return true;
+
+            // Check if only one object is null
+            if (ReferenceEquals(emp1, null) || ReferenceEquals(emp2, null))
+                return false;
+
+            // Compare the Id property of both objects
+            return emp1.Id == emp2.Id;
+        }
+
+        // Overload the inequality operator '!='
+        public static bool operator !=(Employee emp1, Employee emp2)
+        {
+            // Use the overloaded '==' operator to determine if they are not equal
+            return !(emp1 == emp2);
+        }
+
+        // Override the Equals method to provide a comparison based on Id
+        public override bool Equals(object obj)
+        {
+            // Check if the object is of type Employee
+            if (obj is Employee emp)
+            {
+                // Use the overloaded '==' operator to compare
+                return this == emp;
+            }
+            return false;
+        }
+
+        // Override the GetHashCode method to ensure consistency with Equals
+        public override int GetHashCode()
+        {
+            // Return the hash code of the Id property
+            return Id.GetHashCode();
+        }
+    }
+}
